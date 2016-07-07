@@ -1,8 +1,9 @@
+
 public class TicTacToe implements Game{
     public enum Player{
         PLAYER1, PLAYER2;
     }
-    boolean[][] board = new boolean[3][3];
+    //boolean[][] board = new boolean[3][3];
     @Override
     public int move(int x, int y, boolean player){
         return 0;
@@ -12,8 +13,8 @@ public class TicTacToe implements Game{
         return 0;
     }
     public static void main(String[] args){
-
-        while(!isGameOver())
+        Board board = new Board();
+        board.createFrame();
     }
 
 }
