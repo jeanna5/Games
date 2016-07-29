@@ -1,34 +1,60 @@
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Board extends Canvas{
-    public static final long serialVersionUID = 1L;
-    public static final int WIDTH = 160;
-    public static final int HEIGHT = WIDTH/12 * 9;
-    public static final int SCALE = 5;
-    public static final String NAME = "Tic Tac Toe";
-    public void Board() {
+
+public class Board extends JFrame implements ActionListener{
+    ArrayList<ArrayList<String>> boardArray = new ArrayList<>();
+    ArrayList<JButton> buttons = new ArrayList<JButton>();
+    TicTacToe game;
+    public Board(TicTacToe game) {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(300,300);
+        setLocation(100,100);
+        setLayout(new GridLayout(3,3));
+        makeButtons();
+        setVisible(true);
+        initializeArray();
+        this.game=game;
     }
-    public void createFrame(){
-        JFrame frame = new JFrame(NAME);
-        frame.setMinimumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
-        frame.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
-        frame.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        //frame.add(this, BorderLayout.CENTER);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
+    private void makeButtons(){
+        for(int i = 0; i < 9; i++) {
+            buttons.add(new JButton());
+            buttons.get(i).addActionListener(this);
+            this.add(buttons.get(i));
+        }
+    }
 
-        this.placeButtons(3);
+    private void initializeArray(){
+        for(int i = 0; i < 3; i++) {
+            ArrayList<String> rowArr = new ArrayList<>();
+            Collections.addAll(rowArr, "z", "z", "z");
+            boardArray.add(rowArr);
+        }
     }
 
 
-    public void placeButtons(int width){
-        JButton[][] buttons = new JButton[width][width];
+    protected void printBoard(){
+        for(int i = 0; i < 3; i++){
+            System.out.println();
+            for(int j = 0; j<3; j++){
+                System.out.print(boardArray.get(i).get(j) + " ");
+            }
+        }
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton buttonPressed = (JButton)e.getSource();
+        game.currentPlayer = (game.currentPlayer==game.player1) ? game.player2 : game.player1;
+        buttonPressed.setText(game.currentPlayer.getMove());
+        buttonPressed.setEnabled(false);
+
+
+    }
 }
