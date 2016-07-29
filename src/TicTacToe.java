@@ -50,7 +50,7 @@ public class TicTacToe implements Game{
                 return true;
             }
             //check column
-            if (buttons.get(l).getText().equals(buttons.get(l+3).getText()) && buttons.get(l).getText().equals(buttons.get(l+6).getText()) && !buttons.get(i).isEnabled()) {
+            if (buttons.get(l).getText().equals(buttons.get(l+3).getText()) && buttons.get(l).getText().equals(buttons.get(l+6).getText()) && !buttons.get(l).isEnabled()) {
                 return true;
             }
             i+=3; j+=3; k+=3; l+=1;
