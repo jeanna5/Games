@@ -23,22 +23,23 @@ public class TicTacToe implements Game{
         while (true) {
             if (gameIsWon(board.buttons)) {
                 JOptionPane.showMessageDialog(board, "Player " + currentPlayer.getMove() + " Wins");
-                return;
+                break;
             } else if (boardFull(board.buttons)) {
                 JOptionPane.showMessageDialog(board, "Tie Game");
-                return;
+                break;
             }
         }
+        board.setVisible(false);
+        board.dispose();
+        play(new Board(this));
+
     }
 
 
     public static void main(String[] args){
         TicTacToe ttt = new TicTacToe();
-        while(true) {
-            ttt.board = new Board(ttt);
-            ttt.play(ttt.board);
-        }
-
+        ttt.board = new Board(ttt);
+        ttt.play(ttt.board);
     }
 
 
